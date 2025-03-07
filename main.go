@@ -14,11 +14,20 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		log.Fatalf("Usage: %s /path/to/your/dir", os.Args[0])
+	// Define the path to copy content from
+	var toClipPath string
+	
+	if len(os.Args) < 2 {
+		// If path is not specified, use current directory
+		currentDir, err := os.Getwd()
+		if err != nil {
+			log.Fatalf("Failed to get current directory: %v", err)
+		}
+		toClipPath = currentDir
+		fmt.Println("Path not specified. Using current directory.")
+	} else {
+		toClipPath = os.Args[1]
 	}
-
-	toClipPath := os.Args[1]
 
 	fmt.Printf("Copying %s to clipboard\n", toClipPath)
 
