@@ -4,29 +4,35 @@ on:
   push:
     branches:
       - master
-      
+
 permissions:
   contents: write
   packages: write
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest  # Важно: используем macos-latest вместо ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
           go-version: 1.24.1
-      
+
+      - name: Display Go version
+        run: go version
+        
       - name: Install dependencies
         run: go mod tidy
         
-      - name: Build
-        run: go build -o glipper
+      - name: Build for MacOS arm64 (M1/M2/M3)
+        run: GOOS=darwin GOARCH=arm64 go build -o glipper-darwin-arm64
+          
+      - name: Build for MacOS amd64 (Intel)
+        run: GOOS=darwin GOARCH=amd64 go build -o glipper-darwin-amd64
 
       - name: Create or update release
         id: create_release
@@ -34,6 +40,7 @@ jobs:
         with:
           tag_name: latest
           name: Latest Release
-          files: ./glipper
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./glipper-darwin-arm64
+            ./glipper-darwin-amd64
+          token: ${{ secrets.GITHUB_TOKEN }}

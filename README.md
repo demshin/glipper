@@ -2,6 +2,11 @@
 
 Glipper is a small utility tool written in Go that recursively collects the content of all files in a specified directory and copies it to the clipboard. It is intended for developers and anyone who needs a quick way to gather and share file contents.
 
+## Requirements
+
+- macOS (supports both Intel and ARM architectures)
+- Go 1.24 or higher (for building from source)
+
 ## Features
 
 - Recursively traverses directories and reads all file contents.
