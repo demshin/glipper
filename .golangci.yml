@@ -1,0 +1,23 @@
+linters:
+  enable:
+    - errcheck     # Проверяет обработку ошибок
+    - gosimple     # Упрощает код
+    - govet        # Находит проблемы, которые не обнаруживаются компилятором
+    - ineffassign  # Обнаруживает неэффективное присваивание
+    - staticcheck  # Статический анализ
+    - typecheck    # Проверка типов
+    - unused       # Находит неиспользуемый код
+    - gofmt        # Проверяет форматирование кода
+    - goimports    # Проверяет и исправляет импорты
+    - revive       # Быстрая альтернатива golint
+    - gosec        # Проверяет безопасность кода
+    - misspell     # Ищет опечатки в комментариях
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+
+run:
+  deadline: 1m
+  issues-exit-code: 1
+  tests: true

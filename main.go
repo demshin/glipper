@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"golang.design/x/clipboard"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"golang.design/x/clipboard"
 )
 
 func main() {
