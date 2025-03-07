@@ -4,11 +4,11 @@ Glipper is a small utility tool written in Go that recursively collects the cont
 
 ## Features
 
-Recursively traverses directories and reads all file contents.
-
-Skips hidden directories (e.g., .git or .idea).
-
-Copies all collected content to the clipboard.
+- Recursively traverses directories and reads all file contents.
+- Skips hidden directories (e.g., .git or .idea).
+- Copies all collected content to the clipboard.
+- Automatically limits clipboard size to prevent issues with large directories.
+- Configurable via simple config file and command-line options.
 
 ## Installation
 
@@ -39,17 +39,47 @@ For example:
 
 This will recursively collect the content of all files in the specified directory and copy it to your clipboard.
 
+### Command-line Options
+
+Glipper supports the following command-line options:
+
+- `-size=64000`: Maximum clipboard size in bytes (default: 64KB)
+- `-skip-binary=true`: Skip binary files (default: true)
+- `-skip-hidden=true`: Skip hidden directories (default: true)
+- `-help`: Show help information
+
+Example with options:
+
+```bash
+./glipper -size=100000 -skip-binary=false ~/myproject
+```
+
+## Configuration
+
+Glipper can be configured via a configuration file located at `~/.config/glipper/.glipper.conf`. The file uses a simple key=value format:
+
+```
+# Glipper configuration file
+# Format: key=value
+
+max_clipboard_size=64000
+skip_binary_files=true
+skip_hidden_dirs=true
+```
+
+The configuration file is automatically created with default values on first run. Any changes made via command-line options will be saved to this file for future use.
+
 ## Requirements
 
-Go 1.16 or higher
-
-golang.design/x/clipboard library for clipboard support
+- Go 1.16 or higher
+- github.com/atotto/clipboard library for clipboard support
 
 ## Notes
 
-Glipper skips hidden directories (those starting with a dot .) to avoid collecting content from unnecessary system or configuration folders.
-
-The content of each file is separated by a divider for easier readability.
+- Glipper skips hidden directories (those starting with a dot .) to avoid collecting content from unnecessary system or configuration folders.
+- The content of each file is separated by a divider for easier readability.
+- Files larger than 1MB are automatically skipped to prevent memory issues.
+- Content is automatically truncated if it exceeds the configured maximum clipboard size.
 
 ## License
 
@@ -61,9 +91,10 @@ Feel free to submit issues and pull requests if you find any bugs or have sugges
 
 ## Future Improvements
 
-Add support for filtering files by extension.
-
-Implement better error handling for large directories or large file sizes.
+- Add support for filtering files by extension.
+- Implement better error handling for large directories or large file sizes.
+- Add support for configurable file size limits.
+- Add more output format options.
 
 ## Author
 
@@ -74,4 +105,3 @@ Website: https://demsh.in
 Email: aleksandr@demsh.in
 
 Telegram: @demshin
-
