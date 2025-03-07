@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-latest  # Важно: используем macos-latest вместо ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout code
@@ -33,6 +33,11 @@ jobs:
           
       - name: Build for MacOS amd64 (Intel)
         run: GOOS=darwin GOARCH=amd64 go build -o glipper-darwin-amd64
+        
+      - name: Set execute permissions
+        run: |
+          chmod +x glipper-darwin-arm64
+          chmod +x glipper-darwin-amd64
 
       - name: Create or update release
         id: create_release
