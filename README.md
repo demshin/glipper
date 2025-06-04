@@ -5,7 +5,8 @@ Glipper is a small utility tool written in Go that recursively collects the cont
 ## Requirements
 
 - macOS (supports both Intel and ARM architectures)
-- Go 1.24 or higher (for building from source)
+- Go 1.24.1 or higher (for building from source)
+- github.com/atotto/clipboard library for clipboard support
 
 ## Features
 
@@ -73,11 +74,6 @@ skip_hidden_dirs=true
 ```
 
 The configuration file is automatically created with default values on first run. Any changes made via command-line options will be saved to this file for future use.
-
-## Requirements
-
-- Go 1.16 or higher
-- github.com/atotto/clipboard library for clipboard support
 
 ## Notes
 
